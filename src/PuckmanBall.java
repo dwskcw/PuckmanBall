@@ -43,6 +43,9 @@ public class Puck {
 
 public class PuckmanBall {
 	public static void main(String[] args) {
+		// Load images, sounds, etc. here
+		//
+		//
 
 		// Initial puck-related variables and Puck object
 		double pX = 400;
@@ -116,5 +119,9 @@ public class PuckmanBall {
 		}
 
 		CloseWindow();
+
+		// UNLOAD all images, sounds, etc. here
+		//
+		//
 	}
 }

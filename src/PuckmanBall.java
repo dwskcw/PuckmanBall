@@ -178,8 +178,8 @@ public class PuckmanBall {
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
 			
-			DrawText(String.valueOf(p1score), screenWidth * 5 / 16, screenHeight/8, 70, BLACK);
-			DrawText(String.valueOf(p2score), screenWidth * 11 / 16, screenHeight/8, 70, BLACK);
+			DrawText(String.valueOf(p1score), screenWidth * 1 / 4 - 10, screenHeight/10, 70, BLACK);
+			DrawText(String.valueOf(p2score), screenWidth * 3 / 4 - 10, screenHeight/10, 70, BLACK);
 			
 			// DrawText("Puckman", 190, 200, 20, BLACK);
 

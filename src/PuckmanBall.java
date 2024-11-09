@@ -3,6 +3,7 @@ import static com.raylib.Raylib.*;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
+import com.raylib.Raylib.Image;
 
 public class PuckmanBall {
 	public static void main(String[] args) {
@@ -13,6 +14,11 @@ public class PuckmanBall {
 		InitWindow(800, 450, "Puckman Ball");
 
 		SetTargetFPS(60);
+
+		Image rpiLogo = LoadImage("img/rpi-logo.png"); 
+		Texture texture = LoadTextureFromImage(rpiLogo); 
+		texture.height(texture.height() / 16);
+		texture.width(texture.width() / 16);
 
 		while (!WindowShouldClose()) {
 			BeginDrawing();
@@ -26,9 +32,11 @@ public class PuckmanBall {
 			DrawRectangle((int)(screenWidth * 0.15) - 2, 10, 4, screenHeight- 20, RED);
 			DrawRectangle((int)(screenWidth * 0.85) - 2, 10, 4, screenHeight- 20, RED);
 
-			DrawCircle(screenWidth/2, screenHeight/2, 30, RED);
-			DrawCircle(screenWidth/2, screenHeight/2, 27, WHITE);
-			DrawCircle(screenWidth/2, screenHeight/2, 3, RED);
+
+
+			DrawCircle(screenWidth/2, screenHeight/2, 40, RED);
+			DrawCircle(screenWidth/2, screenHeight/2, 37, WHITE);
+			DrawTexture(texture, screenWidth/2 - texture.width()/2, screenHeight/2 - texture.height()/2, WHITE);
 
 			DrawRectangle(screenWidth - screenWidth/16, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(screenWidth - screenWidth/16 + 3, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);

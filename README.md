@@ -11,7 +11,7 @@ run (windows uses semicolon instead of colon, also slashes might be different):
 
     java -cp lib/jaylib-5.0.0-0.jar:. src/Main.java
     
-run (mac):
+run (mac needs -XstartOnFirstThread after java):
 
-    java -XstartOnFirstThread -cp lib/jaylib-5.0.0-0.jar:. src/Main.java
+    java -cp lib/jaylib-5.0.0-0.jar:. src/Main.java
 

@@ -1,6 +1,7 @@
 import static com.raylib.Jaylib.*;
 import static com.raylib.Raylib.*;
 
+import com.raylib.Jaylib;
 import com.raylib.Raylib;
 
 public class PuckmanBall {
@@ -14,16 +15,13 @@ public class PuckmanBall {
 		SetTargetFPS(60);
 
 		while (!WindowShouldClose()) {
-
-			//
-			//
-
-
 			BeginDrawing();
 
 			ClearBackground(LIGHTGRAY);
-			
-			DrawRectangle(10, 10, screenWidth - 20, screenHeight - 20, WHITE);
+
+			DrawRectangleRounded(new Jaylib.Rectangle(5, 5, screenWidth - 10, screenHeight - 10), 0.3f, 1, DARKGRAY);	
+			DrawRectangleRounded(new Jaylib.Rectangle(10, 10, screenWidth - 20, screenHeight - 20), 0.3f, 1, WHITE);
+
 			DrawRectangle(screenWidth/2 - 2, 10, 4, screenHeight - 20, RED);
 			DrawRectangle((int)(screenWidth * 0.15) - 2, 10, 4, screenHeight- 20, RED);
 			DrawRectangle((int)(screenWidth * 0.85) - 2, 10, 4, screenHeight- 20, RED);
@@ -37,16 +35,12 @@ public class PuckmanBall {
 			DrawRectangle(10, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
-
 			DrawText("Puckman", 190, 200, 20, BLACK);
 
 
 			EndDrawing();
-
 		}
 
 		CloseWindow();
-
 	}
-
 }

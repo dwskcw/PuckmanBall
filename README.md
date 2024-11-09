@@ -21,6 +21,8 @@ run (mac requires -XstartOnFirstThread after java):
 **function cheatsheet**
 https://www.raylib.com/cheatsheet/cheatsheet.html
 
+**[Java-specific examples](https://github.com/electronstudio/jaylib-example-project/tree/master/src/main/java/examples)**
+
 **various examples**
 https://www.raylib.com/examples.html
 

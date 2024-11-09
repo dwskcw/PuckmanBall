@@ -4,8 +4,51 @@ import static com.raylib.Raylib.*;
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
 
+// Stores position and velocity of puck
+public class Puck {
+	private double puckX;
+	private double puckY;
+	private double velX;
+	private double velY;
+	
+	// default puck- still at center of screen
+	public Puck() {
+		puckX = 400;
+		puckY = 225;
+		velX = 0;
+		velY = 0;
+	}
+
+	public Puck(pX, pY) {
+		puckX = pX;
+		puckY = pY;
+		velX = 0;
+		velY = 0;
+	}
+
+	// getters
+	public double getX() { return puckX; }
+	public double getY() { return puckY; }
+	public double getVelX() { return velX; }
+	public double getVelY() { return velY; }
+
+	public void setX(double pX) { puckX = pX; }
+	public void setY(double pY) { puckY = pY; }
+	public void setVelX(double vX) { velX = vX; }
+	public void setVelY(double vY) { velY = vY; }
+
+}
+
+
 public class PuckmanBall {
 	public static void main(String[] args) {
+
+		// Initial puck-related variables and Puck object
+		double pX = 400;
+		double pY = 450;
+		double pVelX = 0;
+		double pVelY = 0;
+		Puck p = new Puck(pX, pY);
 
 		int screenWidth = 800;
 		int screenHeight = 450;
@@ -15,6 +58,29 @@ public class PuckmanBall {
 		SetTargetFPS(60);
 
 		while (!WindowShouldClose()) {
+
+			/*
+			 * Update variables
+			 *
+			 */
+
+			// Puck-related:
+			// effectively slightly negative acceleration
+			// p.setVelX( p.getVelX() * 0.96 );
+			// pVelX *= 0.96;
+
+			// change position by velocity
+			// p.setX( p.getX() + p.getVelX() );
+			// pY += velY;
+
+			// set puck position
+			// p.setX(pX);
+			// p.setY(pY);
+
+			/*
+			 * Begin drawing objects to screen
+			 *
+			 */
 			BeginDrawing();
 
 			ClearBackground(LIGHTGRAY);

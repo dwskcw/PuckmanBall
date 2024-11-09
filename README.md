@@ -3,18 +3,23 @@ HackRPI 2024 Project
 
 ### build instructions
 **modified from the [library instructions](https://github.com/electronstudio/jaylib?tab=readme-ov-file#how-to-use-from-command-line)**
-in a terminal
-compile:
 
-    javac -cp lib/jaylib-5.0.0-0.jar src/PuckmanBall.java
+Compile:
+
+    javac -cp jaylib-5.0.0-0.jar PuckmanBall.java
     
-run (windows uses semicolon instead of colon, also slashes might be different):
+Run it:
 
-    java -cp lib/jaylib-5.0.0-0.jar:. src/PuckmanBall.java
+    java -cp jaylib-5.0.0-0.jar:. PuckmanBall
     
-run (mac requires -XstartOnFirstThread after java):
+On MacOS you need this additional option:
 
-    java -cp lib/jaylib-5.0.0-0.jar:. src/PuckmanBall.java
+    java -XstartOnFirstThread -cp jaylib-5.0.0-0.jar:. PuckmanBall
+    
+On weirdy Windows you use semi-colons:
+
+    java -cp jaylib-5.0.0-0.jar;. PuckmanBall
+
 
 ### raylib library resources
 

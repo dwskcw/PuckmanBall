@@ -14,4 +14,3 @@ run (windows uses semicolon instead of colon, also slashes might be different):
 run (mac requires -XstartOnFirstThread after java):
 
     java -cp lib/jaylib-5.0.0-0.jar:. src/PuckmanBall.java
-

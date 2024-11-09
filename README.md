@@ -5,13 +5,13 @@ HackRPI 2024 Project
 in a terminal
 compile:
 
-    javac -cp lib/jaylib-5.0.0-0.jar src/Main.java
+    javac -cp lib/jaylib-5.0.0-0.jar src/PuckmanBall.java
     
 run (windows uses semicolon instead of colon, also slashes might be different):
 
-    java -cp lib/jaylib-5.0.0-0.jar:. src/Main.java
+    java -cp lib/jaylib-5.0.0-0.jar:. src/PuckmanBall.java
     
-run (mac):
+run (mac requires -XstartOnFirstThread after java):
 
-    java -XstartOnFirstThread -cp lib/jaylib-5.0.0-0.jar:. src/Main.java
+    java -cp lib/jaylib-5.0.0-0.jar:. src/PuckmanBall.java
 

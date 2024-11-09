@@ -25,6 +25,8 @@ public class PuckmanBall {
 		double p2VelY = 0.05;
 		double p2VelX = 0.05;
 		
+		int p1score = 0;
+		int p2score = 0;
 
 		int screenWidth = 800;
 		int screenHeight = 450;
@@ -170,13 +172,14 @@ public class PuckmanBall {
 			DrawCircle(screenWidth/2, screenHeight/2, 37, WHITE);
 			DrawTexture(logo, screenWidth/2 - logo.width()/2, screenHeight/2 - logo.height()/2, WHITE);
 
-			DrawRectangle(screenWidth - screenWidth/16, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
+			DrawRectangle(screenWidth - screenWidth/16, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, ColorFromHSV(180f, 1, 1));
 			DrawRectangle(screenWidth - screenWidth/16 + 3, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 			DrawRectangle(10, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
 			
-			
+			DrawText(String.valueOf(p1score), screenWidth * 5 / 16, screenHeight/8, 70, BLACK);
+			DrawText(String.valueOf(p2score), screenWidth * 11 / 16, screenHeight/8, 70, BLACK);
 			
 			// DrawText("Puckman", 190, 200, 20, BLACK);
 

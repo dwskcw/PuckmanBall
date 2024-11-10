@@ -11,7 +11,11 @@ public class PuckmanBall {
 		// Load images, sounds, etc. here
 		//
 		//
-
+		/* Image goalScore = Raylib.LoadImageAnim("resources/goalgif.gif", 0);
+		Texture2D texGoalScore = LoadTextureFromImage(goalScore); IDK. But add this to goalBox collisions. Or not...
+		^^ https://www.raylib.com/examples/textures/loader.html?name=textures_gif_player
+		Do something with the sound. Maybe if puck goes a fast enough speed after play a hardslap sound */
+		Sound goalSound = LoadSound("rpigoalsfx.mp3");
 
 		// Initial puck-related variables and Puck object
 		double pX = 400;
@@ -19,6 +23,13 @@ public class PuckmanBall {
 		double pVelX = -10;
 		double pVelY = -10;
 
+
+		/* Something with the movement feels weird. 
+		   Might be too slow of acceleration and puck slows down too much
+		   Do we want puckmans to collide with each other or do we want them
+		   to stay the way they are OR only be able to move on one half
+		*/
+		
 		double play1X = 100;
 		double play1Y = 225;
 		double p1VelY = 0.05;
@@ -95,7 +106,8 @@ public class PuckmanBall {
 			// bounds for both players
 			if (play1X <= 20) {
                                 play1X = 21;
-                                p2VelX -= 1.75 * p2VelX;
+								p1VelX -= 1.75 * p1VelX;
+                            //  p2VelX -= 1.75 * p2VelX; Lol
                         }
                         if (play1X >= 780) {
                                 play1X = 779;
@@ -150,7 +162,9 @@ public class PuckmanBall {
 
 
 			// HITBOXES
-			Jaylib.Rectangle puckBox = new Jaylib.Rectangle((float)pX, (float)pY, (float)puck.width(), (float)puck.height());
+			Jaylib.Rectangle puckBox = new Jaylib.Rectangle((float)pX, (float)pY, (float)puck.width(), (float)puck.height()); 
+			// Note: It would be better if these were circles for hitting and scoring purposes. Puckman Feet >:( .
+
 			Jaylib.Rectangle p1Box = new Jaylib.Rectangle((float)play1X, (float)play1Y, (float)p1.width(), (float)p1.height());
 			Jaylib.Rectangle p2Box = new Jaylib.Rectangle((float)play2X, (float)play2Y, (float)p2.width(), (float)p2.height());
 
@@ -209,27 +223,59 @@ public class PuckmanBall {
 			Jaylib.Rectangle p2GoalBox = new Jaylib.Rectangle((float)screenWidth-15, (float)screenHeight / 3 + screenHeight/27, 
 											4, (float)screenHeight/3 - screenHeight/15);
 
+			DrawRectangle(screenWidth-15,screenHeight / 3 + screenHeight/27, 4, screenHeight/3 - screenHeight/14,BLACK);
 			if (Jaylib.CheckCollisionRecs(p2GoalBox, puckBox)) {
 				p1Score++;
 				pY = screenHeight/2;
 				pX = screenWidth/2 + 40;
+				PlaySound(goalSound);
 				pVelX = 0;
 				pVelY = 0;
+				// Position reset
+				play1X = 100;
+				play1Y = 225;
+				p1VelY = 0.05;
+				p1VelX = 0.05;
+				play2X = 700;
+				play2Y = 225;
+				p2VelY = 0.05;
+				p2VelX = 0.05;
 			}
 
 			// Left/Player 1 Goal Box
 			DrawRectangle(10, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
-			Jaylib.Rectangle p1GoalBox = new Jaylib.Rectangle(15,screenHeight / 3 + screenHeight/27, 4, screenHeight/3 - screenHeight/14);
+			Jaylib.Rectangle p1GoalBox = new Jaylib.Rectangle(20,screenHeight / 3 + screenHeight/27, 4, screenHeight/3 - screenHeight/14);
+
+			DrawRectangle(15,screenHeight / 3 + screenHeight/27, 4, screenHeight/3 - screenHeight/14,BLACK);
 
 			if (Jaylib.CheckCollisionRecs(p1GoalBox, puckBox)) {
 				p2Score++;
 				pY = screenHeight/2;
 				pX = screenWidth/2 - 40;
+				PlaySound(goalSound);
 				pVelX = 0;
 				pVelY = 0;
+				// Position reset
+				play1X = 100;
+				play1Y = 225;
+				p1VelY = 0.05;
+				p1VelX = 0.05;
+				play2X = 700;
+				play2Y = 225;
+				p2VelY = 0.05;
+				p2VelX = 0.05;
 			}
+
+			if (p1Score == 7) {
+				DrawText("Player 1 Wins", screenWidth/4, screenHeight/2, 50, BLACK);
+			}
+
+			if (p2Score == 7) {
+				DrawText("Player 2 Wins", screenWidth/4, screenHeight/2, 50, BLACK);
+			}
+	
 
 
 	
@@ -245,7 +291,7 @@ public class PuckmanBall {
 			EndDrawing();
 		}
 
-
+		UnloadSound(goalSound);
 		CloseWindow();
 
 		// UNLOAD all images, sounds, etc. here

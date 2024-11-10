@@ -3,12 +3,15 @@ import static com.raylib.Raylib.*;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
+import com.raylib.Raylib.Image;
+import com.raylib.Raylib.Texture;
 
 public class PuckmanBall {
 	public static void main(String[] args) {
 		// Load images, sounds, etc. here
 		//
 		//
+
 
 		// Initial puck-related variables and Puck object
 		double pX = 400;
@@ -24,10 +27,10 @@ public class PuckmanBall {
 		double play2Y = 225;
 		double p2VelY = 0.05;
 		double p2VelX = 0.05;
-		
-		int p1score = 0;
-		int p2score = 0;
 
+		int p1Score = 0;
+		int p2Score = 0;
+		
 		int screenWidth = 800;
 		int screenHeight = 450;
 
@@ -145,7 +148,34 @@ public class PuckmanBall {
 			if ( IsKeyDown( Raylib.KEY_LEFT ) ) { p2VelX -= 0.25; }
 			if ( IsKeyDown( Raylib.KEY_RIGHT ) ) { p2VelX += 0.25; }
 
-				
+
+			// HITBOXES
+			Jaylib.Rectangle puckBox = new Jaylib.Rectangle((float)pX, (float)pY, (float)puck.width(), (float)puck.height());
+			Jaylib.Rectangle p1Box = new Jaylib.Rectangle((float)play1X, (float)play1Y, (float)p1.width(), (float)p1.height());
+			Jaylib.Rectangle p2Box = new Jaylib.Rectangle((float)play2X, (float)play2Y, (float)p2.width(), (float)p2.height());
+
+			// Check for collision
+			if (Jaylib.CheckCollisionRecs(p1Box, puckBox)) {
+				float deltaX = (float)pX - (float)play1X;
+				float deltaY = (float)pY - (float)play1Y;
+				float angle = (float)Math.atan2(deltaY, deltaX);
+
+				// Adjust puck velocity based on the collision angle and player's velocity
+				pVelX = (float)(Math.cos(angle) * Math.abs(pVelX) + p1VelX);
+				pVelY = (float)(Math.sin(angle) * Math.abs(pVelY) + p1VelY);
+			}
+
+			if (Jaylib.CheckCollisionRecs(p2Box, puckBox)) {
+				float deltaX = (float)pX - (float)play2X;
+				float deltaY = (float)pY - (float)play2Y;
+				float angle = (float)Math.atan2(deltaY, deltaX);
+
+				// Adjust puck velocity based on the collision angle and player's velocity
+				pVelX = (float)(Math.cos(angle) * Math.abs(pVelX) + p2VelX);
+				pVelY = (float)(Math.sin(angle) * Math.abs(pVelY) + p2VelY);
+			}
+			
+			DrawRectangle(screenWidth - screenWidth/16, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, ColorFromHSV(180f, 1, 1));
 
 			/*
 			 * Begin drawing objects to screen
@@ -154,8 +184,6 @@ public class PuckmanBall {
 			BeginDrawing();
 
 			ClearBackground(LIGHTGRAY);
-
-
 
 			// Draw the stadium to screen
 
@@ -166,29 +194,54 @@ public class PuckmanBall {
 			DrawRectangle((int)(screenWidth * 0.15) - 2, 10, 4, screenHeight- 20, RED);
 			DrawRectangle((int)(screenWidth * 0.85) - 2, 10, 4, screenHeight- 20, RED);
 
-
+			DrawText(String.valueOf(p1Score), screenWidth * 1 / 4 - 10, screenHeight/10, 70, BLACK);
+			DrawText(String.valueOf(p2Score), screenWidth * 3 / 4 - 10, screenHeight/10, 70, BLACK);
 
 			DrawCircle(screenWidth/2, screenHeight/2, 40, RED);
 			DrawCircle(screenWidth/2, screenHeight/2, 37, WHITE);
 			DrawTexture(logo, screenWidth/2 - logo.width()/2, screenHeight/2 - logo.height()/2, WHITE);
 
+			// Right/Player 2 Goal Box
 			DrawRectangle(screenWidth - screenWidth/16, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, ColorFromHSV(180f, 1, 1));
 			DrawRectangle(screenWidth - screenWidth/16 + 3, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
+
+			
+			Jaylib.Rectangle p2GoalBox = new Jaylib.Rectangle((float)screenWidth-screenWidth/16, (float)screenHeight / 3, 
+											(float)screenWidth/16 - 10, (float)screenHeight/3);
+
+			if (Jaylib.CheckCollisionRecs(p2GoalBox, puckBox)) {
+				p1Score++;
+				pY = screenHeight/2;
+				pX = screenWidth/2 + 40;
+			}
+			
+			   
+			// Left/Player 1 Goal Box
 			DrawRectangle(10, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
-			
-			DrawText(String.valueOf(p1score), screenWidth * 1 / 4 - 10, screenHeight/10, 70, BLACK);
-			DrawText(String.valueOf(p2score), screenWidth * 3 / 4 - 10, screenHeight/10, 70, BLACK);
-			
+			Jaylib.Rectangle p1GoalBox = new Jaylib.Rectangle(10,screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6);
+
+			if (Jaylib.CheckCollisionRecs(p1GoalBox, puckBox)) {
+				p2Score++;
+				pY = screenHeight/2;
+				pX = screenWidth/2 - 40;
+			}
+
+
+	
+			//DrawText( X, Y, font size, color
 			// DrawText("Puckman", 190, 200, 20, BLACK);
 
 			DrawTexture(p1, (int)(play1X - p1.width() / 2), (int)(play1Y - p1.height() / 2), WHITE);
 			DrawTexture(p2, (int)(play2X - p1.width() / 2), (int)(play2Y - p2.height() / 2), WHITE);
 			DrawTexture(puck, (int)(pX - 25), (int)(pY - 25), WHITE);
 
+			
+
 			EndDrawing();
 		}
+
 
 		CloseWindow();
 
@@ -204,6 +257,5 @@ public class PuckmanBall {
 
 		UnloadTexture(p1);
 		UnloadImage(p1Img);
-
 	}
 }

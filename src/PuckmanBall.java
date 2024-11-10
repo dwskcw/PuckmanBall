@@ -206,26 +206,29 @@ public class PuckmanBall {
 			DrawRectangle(screenWidth - screenWidth/16 + 3, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
 			
-			Jaylib.Rectangle p2GoalBox = new Jaylib.Rectangle((float)screenWidth-screenWidth/16, (float)screenHeight / 3, 
-											(float)screenWidth/16 - 10, (float)screenHeight/3);
+			Jaylib.Rectangle p2GoalBox = new Jaylib.Rectangle((float)screenWidth-15, (float)screenHeight / 3 + screenHeight/27, 
+											4, (float)screenHeight/3 - screenHeight/15);
 
 			if (Jaylib.CheckCollisionRecs(p2GoalBox, puckBox)) {
 				p1Score++;
 				pY = screenHeight/2;
 				pX = screenWidth/2 + 40;
+				pVelX = 0;
+				pVelY = 0;
 			}
-			
-			   
+
 			// Left/Player 1 Goal Box
 			DrawRectangle(10, screenHeight / 3, screenWidth/16 - 10, screenHeight/3, RED);
 			DrawRectangle(10, screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6, WHITE);
 
-			Jaylib.Rectangle p1GoalBox = new Jaylib.Rectangle(10,screenHeight / 3 + 3, screenWidth/16 - 13, screenHeight/3 - 6);
+			Jaylib.Rectangle p1GoalBox = new Jaylib.Rectangle(15,screenHeight / 3 + screenHeight/27, 4, screenHeight/3 - screenHeight/14);
 
 			if (Jaylib.CheckCollisionRecs(p1GoalBox, puckBox)) {
 				p2Score++;
 				pY = screenHeight/2;
 				pX = screenWidth/2 - 40;
+				pVelX = 0;
+				pVelY = 0;
 			}
 
 
